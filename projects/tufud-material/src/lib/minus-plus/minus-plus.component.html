@@ -1,0 +1,22 @@
+<div class="container">
+    <button
+      class="quantityButton"
+      (click)="dec()"
+      [disabled]="quantity <= 0"
+    >
+      <mat-icon>remove</mat-icon>
+    </button>
+    <input
+      type="number"
+      class="quantityInput"
+      (change)="handleChange($event)"
+      [min]="0"
+      [value]="quantity"
+    />
+    <button
+      class="quantityButton"
+      (click)="inc()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>

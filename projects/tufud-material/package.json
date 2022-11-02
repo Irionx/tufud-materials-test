@@ -1,0 +1,28 @@
+{
+  "name": "tufud-material",
+  "version": "0.0.1",
+  "description": "shared components library to use in tufud.co",
+  "keywords": [
+    "test",
+    "library",
+    "tufud"
+  ],
+  "homepage": "https://github.com/tufud/tufud-material.git",
+  "bugs": {
+    "url": "https://github.com/tufud/tufud-material.git",
+    "email": "contact@tufud.co"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Tufud Devs Team"
+  },
+  "peerDependencies": {
+    "@angular/common": "^14.1.0",
+    "@angular/core": "^14.1.0",
+    "@angular/material": "^14.2.5"
+  },
+  "dependencies": {
+
+    "tslib": "^2.3.0"
+  }
+}

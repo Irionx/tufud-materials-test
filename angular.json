@@ -23,6 +23,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -90,9 +91,41 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "tufud-material": {
+      "projectType": "library",
+      "root": "projects/tufud-material",
+      "sourceRoot": "projects/tufud-material/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/tufud-material/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/tufud-material/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/tufud-material/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/tufud-material/src/test.ts",
+            "tsConfig": "projects/tufud-material/tsconfig.spec.json",
+            "karmaConfig": "projects/tufud-material/karma.conf.js"
           }
         }
       }

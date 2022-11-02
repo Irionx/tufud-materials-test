@@ -1,0 +1,66 @@
+/* quicksand-regular - latin */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand');
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid lightgray;
+  width: fit-content;
+  padding: 2px 7px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.quantityButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  transition: 0.5ms;
+  -webkit-transition: 0.5ms;
+  -moz-transition: 0.5ms;
+  -ms-transition: 0.5ms;
+  -o-transition: 0.5ms;
+}
+
+.quantityButton:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+
+.quantityButton:active {
+  color: white;
+}
+
+.quantityInput {
+  width: 1.3rem;
+  text-align: center;
+  height: 1.3rem;
+  border: none;
+  margin: 0 0.3rem;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  font-family: 'Quicksand', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -1,0 +1,45 @@
+<mat-toolbar
+  class="cadet-blue-bg"
+  fxLayout="row"
+  style="
+    background-color: #001d30;
+    justify-content: space-between;
+    height: 5rem;
+  "
+>
+  <ng-content></ng-content>
+  <div class="navigation">
+    <div id="a" *ngFor=" let head of header">
+      <a  class="text">{{ head.name }}</a>
+    </div>
+  </div>
+  <div class="top-header" id="b">
+    <a class="subtitle" href="https://wa.me/5491136767770?text=Hola, te escribo desde la plataforma de Tufud y necesito ayuda...">
+      <p>Soporte</p>
+    </a>
+  </div>
+  <div class="header-end" id="c">
+      <mat-icon matBadge="{{shoppingCartAmount}}" matBadgeSize="small" class="usernamebox" (click)="openCart()" [class.usernameboxDisabled]="usernameboxDisabled"
+        >shopping_bag</mat-icon
+      >
+      <mat-icon
+        class="usernamebox1"
+        [matMenuTriggerFor]="menu"
+        #menuTrigger="matMenuTrigger"
+        (onclick)="menuTrigger.openMenu()"
+        >account_circle</mat-icon
+      >
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <span (mouseleave)="menuTrigger.closeMenu()">
+        <button mat-menu-item>
+          <mat-icon>perm_identity</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button  mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </span>
+    </mat-menu>
+  </div>
+</mat-toolbar>
