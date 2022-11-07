@@ -1,6 +1,18 @@
 # TufudMaterial
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+import { TufudMaterialLibraryModule } from 'tufud-material';
+
+<tf-minus-plus> 
+Input quantity: number | undefined
+Output quantityEmitter
+
+<tf-header>
+Input shoppingCartAmount: string;
+Input header  (menu list with options and routes added as array of {name:string,
+                route:string})
+Input usernameboxDisabled: boolean;
+Output openCartEmit (cart empty emmit)
+Output logoutEmit (logout button empty emmit)
 
 ## Code scaffolding
 
@@ -15,10 +27,3 @@ Run `ng build tufud-material` to build the project. The build artifacts will be 
 
 After building your library with `ng build tufud-material`, go to the dist folder `cd dist/tufud-material` and run `npm publish`.
 
-## Running unit tests
-
-Run `ng test tufud-material` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
