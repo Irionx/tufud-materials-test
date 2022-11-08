@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent  {
+  @Input() cartIcon: boolean = false
   @Input() shoppingCartAmount!: string;
   @Input() header!: any;
   @Input() usernameboxDisabled!: boolean;

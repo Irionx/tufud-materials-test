@@ -1,0 +1,26 @@
+<div class="container">
+  <span
+    >Mostrando <b>{{ itemsQuantity }}</b> de {{ length }}</span
+  >
+
+  <div class="paginator" *ngIf="pageSize < length">
+    <button mat-icon-button [disabled]="pageIndex === 0" class="arrows" (click)="previousPage()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      [disabled]="pageIndex === number - 1"
+      class="pageNumbers"
+      *ngFor="let number of pageNumbers()"
+      (click)="selectPage(number-1)"
+    >
+      {{ number }}
+    </button>
+
+    <button [disabled]="disabled" mat-icon-button class="arrows" (click)="nextPage()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <div class="placeholder"></div>
+</div>

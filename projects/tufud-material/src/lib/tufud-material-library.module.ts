@@ -8,18 +8,17 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
-import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
+    PaginationComponent,
     MinusPlusComponent,
     HeaderComponent
 ],
-  imports: [ BrowserAnimationsModule, RouterModule, MatBadgeModule, MatMenuModule, MatToolbarModule, MatIconModule, MatInputModule, MatSelectModule, CommonModule],
+  imports: [ MatBadgeModule, MatMenuModule, MatToolbarModule, MatIconModule, MatInputModule, MatSelectModule, CommonModule],
   exports: [
+    PaginationComponent,
     MinusPlusComponent,
     HeaderComponent
   ],

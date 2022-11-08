@@ -5,3 +5,11 @@
 
 <br>
 <h1>Testing Space</h1>
+
+<tf-pagination
+[length]="totalRecords"
+[pageSize]="10"
+[pageIndex]="0"
+[itemsQuantity]="this.length"
+(page)="nextPage()">
+</tf-pagination>

@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5vh;
+  margin-left: 1vw;
+}
+
+.container span {
+  font-size: 15px;
+  font-weight: 400;
+  color: #7f8c94;
+  margin-bottom: 6px;
+}
+
+.container button {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.arrows {
+  color: #7858dd;
+  line-height: 22px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid hsl(254, 66%, 61%, 0.25);
+}
+
+.pageNumbers {
+  color: #001d30;
+  line-height: 22px;
+  width: 30px;
+  height: 30px;
+}
+
+.placeholder {
+  height: 20px;
+  width: 100px;
+  margin-right: 1vw;
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+
+
+ .placeholder {
+  display: none;
+ }
+
+  .container {
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-left: 0;
+  }
+
+  .container span {
+    margin-bottom: 2rem;
+  }
+
+  .arrows {
+    width: 25px;
+    height: 25px;
+ 
+  }
+  
+  .pageNumbers {
+    width: 25px;
+    height: 25px;
+  }
+
+  .placeholder {
+    display: none;
+  }
+  
+}
+

@@ -7,12 +7,24 @@ Input quantity: number | undefined
 Output quantityEmitter
 
 <tf-header>
+Input cartIcon: boolean (show hide cart button)
 Input shoppingCartAmount: string;
 Input header  (menu list with options and routes added as array of {name:string,
                 route:string})
 Input usernameboxDisabled: boolean;
 Output openCartEmit (cart empty emmit)
 Output logoutEmit (logout button empty emmit)
+
+header need to have this in the project to work:
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+also is needed for testing the lib so add it in the lib module and remove it before build
+
+<tf-pagination>
+  Input pageSize: number;
+  Input length: number;
+  Input pageIndex: number;
+  Input itemsQuantity: number;
+  Output page = new EventEmitter<any>();
 
 ## Code scaffolding
 

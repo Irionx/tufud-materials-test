@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'librarytest';
+  length= 20
+//pagination items 
+  totalRecords= 100
+
+  nextPage(){
+    console.log('next page')
+  }
 }

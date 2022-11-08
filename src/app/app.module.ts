@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { TufudMaterialLibraryModule } from 'tufud-material';
+import { TufudMaterialLibraryModule } from '../../projects/tufud-material/src/public-api';
+
 
 
 
