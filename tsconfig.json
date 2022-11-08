@@ -22,11 +22,11 @@
       "es2020",
       "dom"
     ],
-    "paths": {
+/*     "paths": {
       "tufud-material": [
         "dist/tufud-material"
       ]
-    }
+    } */
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

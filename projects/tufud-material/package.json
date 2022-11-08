@@ -1,6 +1,6 @@
 {
   "name": "tufud-material",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "shared components library to use in tufud.co",
   "keywords": [
     "test",
@@ -22,7 +22,6 @@
     "@angular/material": "^14.2.5"
   },
   "dependencies": {
-
     "tslib": "^2.3.0"
   }
 }
