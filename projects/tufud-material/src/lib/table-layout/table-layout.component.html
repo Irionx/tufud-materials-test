@@ -1,0 +1,157 @@
+<table mat-table [dataSource]="dataSource" class="tableData">
+  <!-- *Este bloque renderiza todos los encabezados de la tabla -->
+  <ng-container
+    *ngFor="let header of displayedColumns"
+    matColumnDef="{{ header }}"
+  >
+    <th mat-header-cell *matHeaderCellDef class="subtitleCol">
+      {{ formatHeader(header) }}
+    </th>
+
+    <!-- *A partir de acá se rendiza cada celda de acuerdo que tipo de dato es, utilizando la directiva ngSwitch y según que nombre tiene el encabeazado -->
+    <td
+      mat-cell
+      *matCellDef="let cellDataValue"
+      class="data"
+      [ngSwitch]="header"
+      [style.width]="
+        isMobile
+          ? ''
+          : header === 'name'
+          ? nameColumnWidthToString()
+          : columnWidthSelector()
+      "
+    >
+      <!-- *Esta etiqueta es el encabeazado que se renderiza en estilo mobile -->
+      <b
+        *ngIf="isMobile && !noHeaderInMobileStyles.includes(header)"
+        class="boldText"
+        >{{ formatHeader(header) }}:</b
+      >
+
+      <!-- *Si el encabezado es 'detail' o 'actions' renderiza este bloque que puede tener de acuerdo a lo indicado, rutas o botones de acción todos asociados a un evento click que emite todos los datos de cada registro-->
+
+      <span *ngSwitchCase="switchActionOptions(header)">
+        <!-- *switchActionOptions retorna el encabezado siempre que sea igual a 'detail' o 'action'-->
+        <span *ngFor="let action of actions" class="links">
+          <div
+            *ngIf="!action.actionButton"
+            class="actionLink link"
+            [style.justify-content]="isMobile ? 'flex-start' : 'center'"
+          >
+            <!-- *si la propiedad action buton es false renderiza este bloque', el metodo 'actionNameByCondition' renderiza el nombre de la acción indicada o el nombre elternativo de acuerdo a la condicion que se le pasa como paramatro-->
+            <span (click)="clickEvent(header, action.name, cellDataValue)">
+              {{ actionNameByCondition(cellDataValue, action) }}
+            </span>
+            <mat-icon id="chevronIcon">chevron_right</mat-icon>
+          </div>
+          <button
+            *ngIf="actionButtonShow(action, cellDataValue)"
+            mat-icon-button
+            [color]="action.iconButtoncolor"
+            (click)="clickEvent(header, action.name, cellDataValue)"
+          >
+            <!-- *si la propiedad action buton es true renderiza este bloque, la propiedad action name debe coincidir con el nombre de alguno de los iconos de material -->
+            <mat-icon>{{ action.name }}</mat-icon>
+          </button>
+        </span>
+      </span>
+
+      <!-- *Si el encabezado es 'status' se renderiza este bloque que muesta un estilo diferente de acuerdo al valor del status. El estilo se asigna con el método statusClassSelector. Si el valor del estado está en la primera posición del array statusOptions renderiza un input select asociado al evento statusEvent -->
+      <div
+        *ngSwitchCase="'status'"
+        [ngClass]="statusClassSelector(cellDataValue[header])"
+        id="statusButton"
+      >
+        <div
+          *ngIf="cellDataValue[header] === statusOptions[0]; else status"
+          id="receivedSelector"
+        >
+          <mat-form-field appearance="outline">
+            <mat-select
+              [placeholder]="cellDataValue[header]"
+              value="initial"
+              (valueChange)="statusEvent(cellDataValue, $event)"
+            >
+              <mat-option
+                *ngFor="let option of statusOptions"
+                class="data"
+                [value]="option === statusOptions[0] ? 'initial' : option"
+                >{{ option }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <ng-template #status>
+          <b>{{ cellDataValue[header] }}</b>
+          <mat-icon *ngIf="cellDataValue[header] === 'Pendiente de revisión'"
+            >warning</mat-icon
+          >
+        </ng-template>
+      </div>
+
+      <!-- *Si el encabezado es 'amount' se renderiza este bloque que muestra un botóm +- si la cantidad es modificable y un botón de icono carrito si el producto puede ser agregado al carrito. Si la cantidad se debe mostrar pero -->
+
+      <span
+        [class.quantityContainer]="isQuantityModifiable"
+        *ngSwitchCase="'amount'"
+      >
+        <div
+          *ngIf="cellDataValue?.price !== null && isQuantityModifiable"
+          style="display: flex; align-items: center; gap: 1rem"
+        >
+          <tf-minus-plus
+            [quantity]="cellDataValue.selectedAmount"
+            (quantityEmitter)="quantityEvent($event, cellDataValue)"
+          >
+          </tf-minus-plus>
+          <button
+            *ngIf="showCartButton"
+            mat-icon-button
+            color="primary"
+            class="addShopingCartButton"
+            [disabled]="cellDataValue.selectedAmount <= 0"
+            (click)="clickEvent(header, header, cellDataValue)"
+          >
+            <mat-icon class="addShopingCartIcon">add_shopping_cart</mat-icon>
+          </button>
+        </div>
+
+        <span
+          *ngIf="!isQuantityModifiable"
+          [class.links]="columnsWithActions?.includes(header)"
+          (click)="clickEvent(header, header, cellDataValue)"
+        >
+          {{ cellDataValue[header] }}
+        </span>
+      </span>
+
+      <!-- *Con cualquier otro encabezado solo renderiza el dato salvo el encabezado 'price' que si es igual a null renderiza el mensaje, sin stock-->
+      <span
+        *ngSwitchDefault
+        class="productNameColumn"
+        [class.links]="columnsWithActions?.includes(header)"
+        (click)="clickEvent(header, header, cellDataValue)"
+      >
+        <span
+          *ngIf="
+            currencyColumns.includes(header) && cellDataValue[header] !== null
+          "
+          >$ </span
+        >{{ cellDataValue[header] }}
+
+        <div
+          *ngIf="header === 'price' && cellDataValue[header] === null"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <mat-icon>error_outline</mat-icon>
+          <span><b>Sin Stock</b></span>
+        </div>
+      </span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+</table>
