@@ -7,13 +7,15 @@ Input quantity: number | undefined
 Output quantityEmitter
 
 <tf-header>
-Input cartIcon: boolean (show hide cart button)
+Input cartIcon: boolean (show/hide cart button | default: true)
 Input shoppingCartAmount: string;
 Input header  (menu list with options and routes added as array of {name:string,
                 route:string})
 Input usernameboxDisabled: boolean;
 Output openCartEmit (cart empty emmit)
 Output logoutEmit (logout button empty emmit)
+*Output() routeLink = new EventEmitter() 
+  *mandatory, emits route string. Use a method with route.navigate([event])
 
 header need to have this in the project to work:
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

@@ -6,12 +6,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent  {
-  @Input() cartIcon: boolean = false
+  @Input() cartIcon: boolean = true
   @Input() shoppingCartAmount!: string;
   @Input() header!: any;
   @Input() usernameboxDisabled!: boolean;
   @Output() openCartEmit = new EventEmitter()
   @Output() logoutEmit = new EventEmitter()
+  @Output() routeLink = new EventEmitter()
 
    openCart(){
     this.openCartEmit.emit()
@@ -20,4 +21,9 @@ export class HeaderComponent  {
   logout() {
     this.logoutEmit.emit()
   }
+
+  linkTo(route:string){
+    this.routeLink.emit(route)
+  }
+
 }

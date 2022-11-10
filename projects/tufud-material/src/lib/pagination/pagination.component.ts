@@ -6,10 +6,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent implements OnInit {
-  @Input() pageSize?: number;
-  @Input() length?: number;
-  @Input() pageIndex?: number;
-  @Input() itemsQuantity?: number;
+  @Input() pageSize: number = 0;
+  @Input() length: number = 0 ;
+  @Input() pageIndex: number = 1;
+  @Input() itemsQuantity?: number = 0;
   @Output() page = new EventEmitter<any>();
   disabled = false;
 

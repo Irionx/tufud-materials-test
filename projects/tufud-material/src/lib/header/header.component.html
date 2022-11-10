@@ -10,7 +10,7 @@
   <ng-content></ng-content>
   <div class="navigation">
     <div id="a" *ngFor=" let head of header">
-      <a  class="text">{{ head.name }}</a>
+      <a style="cursor: pointer;" (click)="linkTo(this.head.route)" class="text">{{ head.name }}</a>
     </div>
   </div>
   <div class="top-header" id="b">
@@ -19,7 +19,7 @@
     </a>
   </div>
   <div class="header-end" id="c">
-      <mat-icon matBadge="{{shoppingCartAmount}}" matBadgeSize="small" class="usernamebox" (click)="openCart()" [class.usernameboxDisabled]="usernameboxDisabled"
+      <mat-icon *ngIf="cartIcon" matBadge="{{shoppingCartAmount}}" matBadgeSize="small" class="usernamebox" (click)="openCart()" [class.usernameboxDisabled]="usernameboxDisabled"
         >shopping_bag</mat-icon
       >
       <mat-icon 
