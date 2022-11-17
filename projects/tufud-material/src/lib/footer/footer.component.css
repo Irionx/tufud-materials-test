@@ -1,0 +1,54 @@
+.footer {
+  background-color: #001d30;
+  justify-content: space-between;
+  height: 143px;
+}
+
+.icon {
+  width: 5rem;
+  height: 5rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  margin-left: 72px;
+}
+
+.socialMediaIcons {
+  display: flex;
+  gap: 16px;
+  margin-right: 127px;
+  align-items: center;
+  height: 75%;
+}
+
+.socialMediaIcons a {
+  height: 20px;
+  width: 20px;
+  color: rgba(255, 255, 255, 0.4);
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.socialMediaIcons a:hover {
+  scale: 1.08;
+}
+
+@media screen and (max-width: 600px) {
+  .footer {
+    height: 150px;
+  }
+
+  .socialMediaIcons {
+    margin: 0 1rem 0 0;
+    height: 58%;
+    gap: 20px;
+  }
+
+ .icon {
+  margin: 0 0 0 1rem;
+ }
+
+
+}

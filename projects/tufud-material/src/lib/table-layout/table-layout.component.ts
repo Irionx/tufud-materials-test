@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { TLActions, TLHeaderAdditionalText } from './table-layout.interface';
+import { TLActions, TLHeader } from './table-layout.interface';
 
 @Component({
   selector: 'tf-table-layout',
@@ -9,8 +9,8 @@ import { TLActions, TLHeaderAdditionalText } from './table-layout.interface';
 })
 export class TableLayoutComponent implements OnInit {
 
-  @Input() displayedColumns: string[] = [];
-    //* Array donde se ingresan todos los headers de la tabla
+  @Input() displayedColumns: TLHeader[] = [];
+    //* Array donde se ingresan todos los headers de la tabla,cada header es un objeto que tiene una propiedad column con el nombre del dato, una propiedad displayName con el nombre para mostrar y un propiedad additionalText con texto addicional que puede ser agregado condicionalmente por el componente padre.
   @Input() dataSource: MatTableDataSource<any> | any[] = [];
   //* Array donde se ingresan los datos de cada celda
   @Input() actions: TLActions[] = [];
@@ -21,8 +21,6 @@ export class TableLayoutComponent implements OnInit {
   //* Array con las columnas en cuyos datos se debe renderizar antes el signo $
   @Input() statusOptions: string[] = [];
   //*Array con las opciones de estatus variable. Solo hay que agregarlo si se necesita dicha caracteristica
-  @Input() addTextToHeader: TLHeaderAdditionalText[] = [];
-  //*Array del tipo TLHeaderAdditionalText para indicar headers con textos adicionales dinamicos, como por ejemplo el precio sin iva incluido.
   @Input() noHeaderInMobileStyles:string[] = []
   //*Array con las nombres de las columnas que no requieren headers en estilos mobile. 
   @Input() showCartButton: boolean |undefined;
@@ -31,7 +29,6 @@ export class TableLayoutComponent implements OnInit {
  //*Booleano ue cuando está en true renderiza un plus-minus button para modificar cantidades que está asociado al evento quantityEvent 
   @Input() nameColumnWidth: number = 0;
   //* Con este número podemos indicar el ancho de la columna name, el resto de las columnas se se repartiran el ancho de pantalla restante.
-
   @Output() clickEventDataEmmitter = new EventEmitter<any>();
   //*Emite los datos del registro asociado a ese click
   @Output() quantityEventEmmitter = new EventEmitter<any>();
@@ -43,10 +40,14 @@ export class TableLayoutComponent implements OnInit {
    public isMobile: boolean |undefined
    private mobileQuery:MediaQueryList | undefined;
 
+   columnsHeaders: string[] = []
+   //*Array que agrupa todos los headers según necesita el componente tabla de material UI
+
   constructor() { }
 
   ngOnInit(): void {
     this.checkWindowWidth(660);
+    this.columnsHeaders = this.displayedColumns.map((column) => column.column);
   }
 
   switchActionOptions(option: string) {
@@ -61,79 +62,19 @@ export class TableLayoutComponent implements OnInit {
       : action.alternativeName;
   }
 
-  formatHeader(header: string): string {
-    let auxHeader: string = '';
 
-    if (header === 'name') {
-      auxHeader = 'Nombre';
-    }
-    if (header === 'phone') {
-      auxHeader = 'Teléfono';
-    }
-    if (header === 'email') {
-      auxHeader = 'Email';
-    }
-    if (header === 'address') {
-      auxHeader = 'Dirección';
-    }
-    if (header === 'actions') {
-      auxHeader = 'Acciones';
-    }
-    if (header === 'sku') {
-      auxHeader = 'SKU';
-    }
-    if (header === 'brand') {
-      auxHeader = 'Marca';
-    }
-    if (header === 'price') {
-      auxHeader = 'Precio';
-    }
-    if (header === 'unit') {
-      auxHeader = 'Unidad';
-    }
-    if (header === 'status') {
-      auxHeader = 'Estado';
-    }
-    if (header === 'id') {
-      auxHeader = 'N. de Orden';
-    }
-    if (header === 'customer_name') {
-      auxHeader = 'Cliente';
-    }
-    if (header === 'provider_name') {
-      auxHeader = 'Proveedor';
-    }
-    if (header === 'total') {
-      auxHeader = 'Total';
-    }
-    if (header === 'date_created') {
-      auxHeader = 'Fecha de encargo';
-    }
-    if (header === 'detail') {
-      auxHeader = 'Detalle';
-    }
-    if (header === 'nickname') {
-      auxHeader = 'Nickname';
-    }
-    if (header === 'modifiedTimestamp') {
-      auxHeader = 'Fecha de creación';
-    }
-    if (header === 'amount') {
-      auxHeader = 'Cantidad';
-    }
-    if (header === 'subtotal') {
-      auxHeader = 'Subtotal';
-    }
+  formatHeader(header: string): string|undefined{
+    let auxHeader: TLHeader| undefined;
 
-    if (this.addTextToHeader.map((e) => e.column).includes(header)) {
-      let additionalText = this.addTextToHeader.find(
-        (e) => e.column === header
-      )?.content;
+    auxHeader = this.displayedColumns.find(
+      (columns) => columns.column === header
+    );
 
-      return auxHeader + ` ${additionalText}`;
-    } else {
-      return auxHeader;
-    }
+    let headerToShow: string|undefined = auxHeader?.additionalText
+      ? `${auxHeader.displayName} ${auxHeader.additionalText}`
+      : auxHeader?.displayName;
+
+    return headerToShow;
   }
 
   nameColumnWidthToString(): string {
@@ -141,10 +82,10 @@ export class TableLayoutComponent implements OnInit {
   }
 
   columnWidthSelector(): string {
-    let totalWidth: number = this.displayedColumns.includes('name')
+    let totalWidth: number = this.columnsHeaders.includes('name')
       ? 100 - this.nameColumnWidth
       : 100;
-    return String(Math.floor(totalWidth / this.displayedColumns.length)) + '%';
+    return String(Math.floor(totalWidth / this.columnsHeaders.length)) + '%';
   }
 
   clickEvent(header: string, actionName: string|undefined, dataValue: any) {

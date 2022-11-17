@@ -1,7 +1,7 @@
 <table mat-table [dataSource]="dataSource" class="tableData">
   <!-- *Este bloque renderiza todos los encabezados de la tabla -->
   <ng-container
-    *ngFor="let header of displayedColumns"
+    *ngFor="let header of columnsHeaders"
     matColumnDef="{{ header }}"
   >
     <th mat-header-cell *matHeaderCellDef class="subtitleCol">
@@ -152,6 +152,6 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+  <tr mat-header-row *matHeaderRowDef="columnsHeaders"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsHeaders"></tr>
 </table>

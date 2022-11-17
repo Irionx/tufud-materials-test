@@ -7,7 +7,8 @@ export interface TLActions {
     conditionToSwitchNames?:string;
 }
 
-export interface TLHeaderAdditionalText {
+export interface TLHeader {
     column:string;
-    content:string;
+    displayName:string;
+    additionalText?:string;
 }

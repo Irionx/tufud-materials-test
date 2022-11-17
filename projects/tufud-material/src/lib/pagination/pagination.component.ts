@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PaginationComponent implements OnInit {
   @Input() pageSize: number = 0;
   @Input() length: number = 0 ;
-  @Input() pageIndex: number = 1;
+  @Input() pageIndex: number = 0;
   @Input() itemsQuantity?: number = 0;
   @Output() page = new EventEmitter<any>();
   disabled = false;

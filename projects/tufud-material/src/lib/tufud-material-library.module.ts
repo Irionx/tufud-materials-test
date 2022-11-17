@@ -12,11 +12,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TableLayoutComponent } from './table-layout/table-layout.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
 @NgModule({
   declarations: [
+    FooterComponent,
     PaginationComponent,
     MinusPlusComponent,
     HeaderComponent,
@@ -24,6 +26,7 @@ import { TableLayoutComponent } from './table-layout/table-layout.component';
 ],
   imports: [  MatBadgeModule, MatMenuModule, MatToolbarModule, MatIconModule, MatInputModule, MatSelectModule, MatTableModule, MatButtonModule, CommonModule],
   exports: [
+    FooterComponent,
     PaginationComponent,
     MinusPlusComponent,
     HeaderComponent,
