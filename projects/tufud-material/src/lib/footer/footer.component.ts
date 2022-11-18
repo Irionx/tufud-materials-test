@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'tf-footer',
@@ -6,9 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
-  imgSource = {
-    linkedinSrc:'../src/assets/linkedin.svg',
-    twitterSrc:'../src/assets/twitter.svg',
-    instagramSrc:'../src/assets/instagram.svg'
+
+  constructor(private maticonRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+    this.maticonRegistry.addSvgIcon(
+      'instagram',
+      this.domSanitizer.bypassSecurityTrustResourceUrl("tfassets/instagram.svg")
+    )
+    this.maticonRegistry.addSvgIcon(
+      'linkedIn',
+      this.domSanitizer.bypassSecurityTrustResourceUrl("tfassets/linkedin.svg")
+    )
+    this.maticonRegistry.addSvgIcon(
+      'facebook',
+      this.domSanitizer.bypassSecurityTrustResourceUrl("tfassets/facebook.svg")
+    )
+    this.maticonRegistry.addSvgIcon(
+      'twitter',
+      this.domSanitizer.bypassSecurityTrustResourceUrl("tfassets/twitter.svg")
+    )
   }
+
 }
