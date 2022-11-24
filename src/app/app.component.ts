@@ -7,6 +7,12 @@ import { Router, RouterLink } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  columns = [
+    { name: "Greeting", prop: "name" },
+    { prop: "details" }
+  ];
+  rows = [{ name: "I am", details: "Angular" }, { name: "Hello", details: "Angular" }];
+
   header = [{ name: 'Ordenes', route: 'orders'}]
   length= 20
 //pagination items 
