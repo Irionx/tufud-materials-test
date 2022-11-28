@@ -58,38 +58,12 @@
       </span>
 
       <!-- *Si el encabezado es 'status' se renderiza este bloque que muesta un estilo diferente de acuerdo al valor del status. El estilo se asigna con el método statusClassSelector. Si el valor del estado está en la primera posición del array statusOptions renderiza un input select asociado al evento statusEvent -->
-      <div
-        *ngSwitchCase="'status'"
-        [ngClass]="statusClassSelector(cellDataValue[header])"
-        id="statusButton"
-      >
-        <div
-          *ngIf="cellDataValue[header] === statusOptions[0]; else status"
-          id="receivedSelector"
-        >
-          <mat-form-field appearance="outline">
-            <mat-select
-              [placeholder]="cellDataValue[header]"
-              value="initial"
-              (valueChange)="statusEvent(cellDataValue, $event)"
-            >
-              <mat-option
-                *ngFor="let option of statusOptions"
-                class="data"
-                [value]="option === statusOptions[0] ? 'initial' : option"
-                >{{ option }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-        </div>
 
-        <ng-template #status>
-          <b>{{ cellDataValue[header] }}</b>
-          <mat-icon *ngIf="cellDataValue[header] === 'Pendiente de revisión'"
-            >warning</mat-icon
-          >
-        </ng-template>
-      </div>
+      <tf-status
+        *ngSwitchCase="'status'"
+        [statusInfo]="statusInfoSelector(cellDataValue[header])"
+        (statusEmitter)="statusEvent(cellDataValue, $event)"
+      ></tf-status>
 
       <!-- *Si el encabezado es 'amount' se renderiza este bloque que muestra un botóm +- si la cantidad es modificable y un botón de icono carrito si el producto puede ser agregado al carrito. Si la cantidad se debe mostrar pero -->
 

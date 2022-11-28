@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="top-header" id="b">
-    <a class="subtitle" href="https://wa.me/5491136767770?text=Hola, te escribo desde la plataforma de Tufud y necesito ayuda...">
+    <a class="subtitle" href="https://wa.me/5491136767770?text=Hola, te escribo desde la plataforma de Tufud y necesito ayuda..." target="_blank">
       <p>Soporte</p>
     </a>
   </div>
@@ -31,7 +31,7 @@
       >
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
       <span (mouseleave)="menuTrigger.closeMenu()">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="openProfile()">
           <mat-icon>perm_identity</mat-icon>
           <span>Perfil</span>
         </button>

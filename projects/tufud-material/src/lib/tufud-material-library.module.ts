@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TableLayoutComponent } from './table-layout/table-layout.component';
+import { StatusComponent } from './status/status.component';
 import { FooterComponent } from './footer/footer.component';
 
 
@@ -22,7 +23,8 @@ import { FooterComponent } from './footer/footer.component';
     PaginationComponent,
     MinusPlusComponent,
     HeaderComponent,
-    TableLayoutComponent
+    TableLayoutComponent,
+    StatusComponent
 ],
   imports: [  MatBadgeModule, MatMenuModule, MatToolbarModule, MatIconModule, MatInputModule, MatSelectModule, MatTableModule, MatButtonModule, CommonModule],
   exports: [
@@ -30,7 +32,8 @@ import { FooterComponent } from './footer/footer.component';
     PaginationComponent,
     MinusPlusComponent,
     HeaderComponent,
-    TableLayoutComponent
+    TableLayoutComponent,
+    StatusComponent
   ],
 })
 export class TufudMaterialLibraryModule {}

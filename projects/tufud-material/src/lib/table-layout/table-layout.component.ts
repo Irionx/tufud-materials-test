@@ -1,32 +1,32 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { TLActions, TLHeader } from './table-layout.interface';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { TLActions, TLHeader } from "./table-layout.interface";
+import { StatusInfo } from "../status/status.interface";
 
 @Component({
-  selector: 'tf-table-layout',
-  templateUrl: './table-layout.component.html',
-  styleUrls: ['./table-layout.component.css']
+  selector: "tf-table-layout",
+  templateUrl: "./table-layout.component.html",
+  styleUrls: ["./table-layout.component.css"],
 })
 export class TableLayoutComponent implements OnInit {
-
   @Input() displayedColumns: TLHeader[] = [];
-    //* Array donde se ingresan todos los headers de la tabla,cada header es un objeto que tiene una propiedad column con el nombre del dato, una propiedad displayName con el nombre para mostrar y un propiedad additionalText con texto addicional que puede ser agregado condicionalmente por el componente padre.
+  //* Array donde se ingresan todos los headers de la tabla,cada header es un objeto que tiene una propiedad column con el nombre del dato, una propiedad displayName con el nombre para mostrar y un propiedad additionalText con texto addicional que puede ser agregado condicionalmente por el componente padre.
   @Input() dataSource: MatTableDataSource<any> | any[] = [];
   //* Array donde se ingresan los datos de cada celda
   @Input() actions: TLActions[] = [];
-    //* Array del tipo TLActions, cada propiedad de un objteto TLActions le asigna una carácteristica especifica a cada una de las acciones que se renderizaran en la columnas de acciones o detalle
+  //* Array del tipo TLActions, cada propiedad de un objteto TLActions le asigna una carácteristica especifica a cada una de las acciones que se renderizaran en la columnas de acciones o detalle
   @Input() columnsWithActions: string[] = [];
-  //* Array con las columnas que contendran acciones, si el nombre de la columna no está en este array no se activará el evento click sobre sus datos 
+  //* Array con las columnas que contendran acciones, si el nombre de la columna no está en este array no se activará el evento click sobre sus datos
   @Input() currencyColumns: string[] = [];
-  //* Array con las columnas en cuyos datos se debe renderizar antes el signo $
-  @Input() statusOptions: string[] = [];
-  //*Array con las opciones de estatus variable. Solo hay que agregarlo si se necesita dicha caracteristica
-  @Input() noHeaderInMobileStyles:string[] = []
-  //*Array con las nombres de las columnas que no requieren headers en estilos mobile. 
-  @Input() showCartButton: boolean |undefined;
- //* Booleano para indicar si queremo añador el botón de carrito que utilizamos para sumar productos al carrito por ejemplo
-  @Input() isQuantityModifiable: boolean |undefined;
- //*Booleano ue cuando está en true renderiza un plus-minus button para modificar cantidades que está asociado al evento quantityEvent 
+  //* Array con las columnas en cuyos datos se debe renderizar antes el signo
+  @Input() statusInfoCollection: StatusInfo[] = [];
+  //*Array con las opciones de estilos de estatus variable. Si la propieded editable es true se renderiza un select con las edit_option
+  @Input() noHeaderInMobileStyles: string[] = [];
+  //*Array con las nombres de las columnas que no requieren headers en estilos mobile.
+  @Input() showCartButton: boolean | undefined;
+  //* Booleano para indicar si queremo añador el botón de carrito que utilizamos para sumar productos al carrito por ejemplo
+  @Input() isQuantityModifiable: boolean | undefined;
+  //*Booleano ue cuando está en true renderiza un plus-minus button para modificar cantidades que está asociado al evento quantityEvent
   @Input() nameColumnWidth: number = 0;
   //* Con este número podemos indicar el ancho de la columna name, el resto de las columnas se se repartiran el ancho de pantalla restante.
   @Output() clickEventDataEmmitter = new EventEmitter<any>();
@@ -34,16 +34,15 @@ export class TableLayoutComponent implements OnInit {
   @Output() quantityEventEmmitter = new EventEmitter<any>();
   //*Emite los datos del registro asociado a ese click y la variación de la cantidad asociada
   @Output() statusEventEmmitter = new EventEmitter<any>();
-   //*Emite los datos del registro asociado a los cambios en el selector y el valor nuevo del selector
+  //*Emite los datos del registro asociado a los cambios en el selector y el valor nuevo del selector
 
+  public isMobile: boolean | undefined;
+  private mobileQuery: MediaQueryList | undefined;
 
-   public isMobile: boolean |undefined
-   private mobileQuery:MediaQueryList | undefined;
+  columnsHeaders: string[] = [];
+  //*Array que agrupa todos los headers según necesita el componente tabla de material UI
 
-   columnsHeaders: string[] = []
-   //*Array que agrupa todos los headers según necesita el componente tabla de material UI
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.checkWindowWidth(660);
@@ -51,8 +50,8 @@ export class TableLayoutComponent implements OnInit {
   }
 
   switchActionOptions(option: string) {
-    if (option === 'actions' || option === 'detail') return option;
-    else return '';
+    if (option === "actions" || option === "detail") return option;
+    else return "";
   }
 
   actionNameByCondition(dataValue: any, action: any) {
@@ -62,15 +61,14 @@ export class TableLayoutComponent implements OnInit {
       : action.alternativeName;
   }
 
-
-  formatHeader(header: string): string|undefined{
-    let auxHeader: TLHeader| undefined;
+  formatHeader(header: string): string | undefined {
+    let auxHeader: TLHeader | undefined;
 
     auxHeader = this.displayedColumns.find(
       (columns) => columns.column === header
     );
 
-    let headerToShow: string|undefined = auxHeader?.additionalText
+    let headerToShow: string | undefined = auxHeader?.additionalText
       ? `${auxHeader.displayName} ${auxHeader.additionalText}`
       : auxHeader?.displayName;
 
@@ -78,17 +76,17 @@ export class TableLayoutComponent implements OnInit {
   }
 
   nameColumnWidthToString(): string {
-    return this.nameColumnWidth + '%';
+    return this.nameColumnWidth + "%";
   }
 
   columnWidthSelector(): string {
-    let totalWidth: number = this.columnsHeaders.includes('name')
+    let totalWidth: number = this.columnsHeaders.includes("name")
       ? 100 - this.nameColumnWidth
       : 100;
-    return String(Math.floor(totalWidth / this.columnsHeaders.length)) + '%';
+    return String(Math.floor(totalWidth / this.columnsHeaders.length)) + "%";
   }
 
-  clickEvent(header: string, actionName: string|undefined, dataValue: any) {
+  clickEvent(header: string, actionName: string | undefined, dataValue: any) {
     if (this.columnsWithActions?.includes(header))
       this.clickEventDataEmmitter.emit({ name: actionName, data: dataValue });
   }
@@ -101,40 +99,31 @@ export class TableLayoutComponent implements OnInit {
     this.statusEventEmmitter.emit({ data: dataValue, selectValue: value });
   }
 
-  statusClassSelector(value: string): string {
-    switch (value) {
-      case 'Pendiente':
-        return 'class1';
-      case 'Cancelada':
-        return 'class2';
-      case 'Recibida':
-        return 'class4';
-      case 'Entregada':
-        return 'class4';
-      case 'Pendiente de revisión':
-        return 'class5';
-      default:
-        return '';
-    }
+  statusInfoSelector(status: string): StatusInfo | undefined {
+    return this.statusInfoCollection.find(
+      (statusInfo) => statusInfo.name === status
+    );
   }
 
   actionButtonShow(action: any, data: any): boolean {
     if (action.actionButton) {
       if (
         data.comments ||
-        (data.additional_info && action.name === 'comment')
+        (data.additional_info && action.name === "comment")
       ) {
         return true;
       }
-      if (action.name !== 'comment') return true;
+      if (action.name !== "comment") return true;
     }
 
     return false;
   }
 
-  checkWindowWidth(width: number){
-    this.isMobile = (window.innerWidth <= width)
-    this.mobileQuery= window.matchMedia("(max-width:"+width+"px)")
-    this.mobileQuery.addEventListener( "change", resp => { return this.isMobile= resp.matches })
-  }  
+  checkWindowWidth(width: number) {
+    this.isMobile = window.innerWidth <= width;
+    this.mobileQuery = window.matchMedia("(max-width:" + width + "px)");
+    this.mobileQuery.addEventListener("change", (resp) => {
+      return (this.isMobile = resp.matches);
+    });
+  }
 }

@@ -1,0 +1,29 @@
+<div *ngIf="statusInfo?.editable; else status" id="selector">
+    <mat-form-field appearance="outline">
+      <mat-select value="initial" (valueChange)="statusChange($event)">
+        <mat-option value="initial"> {{ statusInfo?.name }}</mat-option>
+        <mat-option
+          *ngFor="let option of statusInfo?.edit_options"
+          class="data"
+          [value]="option"
+          >{{ option }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+  <ng-template #status>
+    <div
+      class="status"
+      [style.border-color]="statusInfo?.border_color"
+      [style.color]="statusInfo?.color"
+      id="statusButton"
+    >
+      <b>{{ statusInfo?.name }}</b>
+      <mat-icon
+        *ngIf="statusInfo?.mat_icon"
+        [style.color]="statusInfo?.mat_icon_color"
+        >{{ statusInfo?.mat_icon }}</mat-icon
+      >
+    </div>
+  </ng-template>

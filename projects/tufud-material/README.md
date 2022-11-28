@@ -1,32 +1,59 @@
-# TufudMaterial
+### Tufud Material Components
 
-import { TufudMaterialLibraryModule } from 'tufud-material';
 
-<tf-minus-plus> 
-Input quantity: number | undefined
-Output quantityEmitter
+### <tf-header></tf-header>
+- **Input quantity: number | undefined** Output quantityEmitter
+- **Input cartIcon: boolean** (show/hide cart button | default: true)
+- **Input shoppingCartAmount: string**
+- **Input header** (menu list with options and routes added as array of {name:string, route:string}) 
+- **Input usernameboxDisabled: boolean**
+- **Output openCartEmit** (cart empty emmit) 
+- **Output logoutEmit** (logout button empty emmit) *Output() routeLink = new EventEmitter() *mandatory, emits route string. Use a method with route.navigate([event])
 
-<tf-header>
-Input cartIcon: boolean (show/hide cart button | default: true)
-Input shoppingCartAmount: string;
-Input header  (menu list with options and routes added as array of {name:string,
-                route:string})
-Input usernameboxDisabled: boolean;
-Output openCartEmit (cart empty emmit)
-Output logoutEmit (logout button empty emmit)
-*Output() routeLink = new EventEmitter() 
-  *mandatory, emits route string. Use a method with route.navigate([event])
 
-header need to have this in the project to work:
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-also is needed for testing the lib so add it in the lib module and remove it before build
+###  <tf-pagination>
+- **Input pageSize: number** 
+- **Input length: number**
+- **Input pageIndex: number**
+- **Input itemsQuantity: number**
+- **Output page = new EventEmitter()**
 
-<tf-pagination>
-  Input pageSize: number;
-  Input length: number;
-  Input pageIndex: number;
-  Input itemsQuantity: number;
-  Output page = new EventEmitter<any>();
+### <tf-minus-plus>
+### <tf-table-layout>
+
+---
+#### **Requirements:**
+`import { TufudMaterialLibraryModule } from 'tufud-material';`
+
+**<tf-header>** needs to have this in the project to work: 
+`import { BrowserAnimationsModule } from '@angular/platform-browser/animations';`
+ also needed for testing the lib. If you add it in the lib module remove it before build
+
+**<tf-footer>** needs to add the resource path of the library in the angular.json of the application:
+```
+"assets": [
+  "src/favicon.ico",
+  "src/assets",
+  {
+    "glob": "**/*",
+    "input": "node_modules/tufud-material/assets",
+    "output": "tfassets"
+  }
+],
+```
+
+<tf-footer>
+You need to add the resource path of the library in the angular.json of the application:
+            
+    "assets": [
+      "src/favicon.ico",
+      "src/assets",
+      {
+        "glob": "**/*",
+        "input": "node_modules/tufud-material/assets",
+        "output": "tfassets"
+      }
+    ],
 
 ## Code scaffolding
 
